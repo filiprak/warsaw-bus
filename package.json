@@ -1,11 +1,12 @@
 {
   "name": "warsaw-bus",
-  "version": "0.1.0",
+  "version": "1.0.0",
   "private": true,
   "scripts": {
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
-    "lint": "vue-cli-service lint"
+    "lint": "vue-cli-service lint",
+    "deploy": "npm run lint && npm run build && firebase deploy --only hosting"
   },
   "dependencies": {
     "core-js": "^2.6.5",
