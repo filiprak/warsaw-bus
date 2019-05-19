@@ -2,7 +2,7 @@
     <GmapMap ref="mapRef"
              class="map"
              :center="{lat: 52.236619, lng: 21.005948}"
-             :zoom="11"
+             :zoom="12"
              :options="{
                zoomControl: true,
                mapTypeControl: false,

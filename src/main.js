@@ -1,7 +1,8 @@
 import Vue from 'vue'
 import App from './App.vue'
-import './plugins/element.js'
+import './plugins/vuetify'
 import './plugins/google-maps.js'
+import store from './store'
 
 Vue.config.productionTip = false;
 
@@ -9,5 +10,6 @@ Vue.config.productionTip = false;
 document.title = process.env.VUE_APP_TITLE;
 
 new Vue({
-  render: h => h(App),
+  store,
+  render: h => h(App)
 }).$mount('#app');
