@@ -1,28 +1,37 @@
 <template>
-  <div id="app">
-    <img alt="Vue logo" src="./assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
-  </div>
+    <el-container id="app">
+        <div class="controls">
+            <Controls></Controls>
+        </div>
+        <Map></Map>
+    </el-container>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
+    import Map from './components/Map.vue'
+    import Controls from "./components/Controls";
 
-export default {
-  name: 'app',
-  components: {
-    HelloWorld
-  }
-}
+    export default {
+        name: 'app',
+        components: {
+            Controls,
+            Map
+        }
+    }
 </script>
 
 <style>
-#app {
-  font-family: 'Avenir', Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
-}
+    html, body, #app {
+        width: 100%;
+        height: 100%;
+        margin: 0;
+        padding: 0;
+    }
+    .controls {
+        position: absolute;
+        right: 0;
+        top: 0;
+        z-index: 99;
+        margin: 15px;
+    }
 </style>
