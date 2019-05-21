@@ -6,7 +6,13 @@
             <v-divider></v-divider>
         </v-flex>
         <v-flex class="lines-list">
-            <LineButton v-model="selected_lines" :model-id="line.lineId" v-for="line in lines" :lineId="line.lineId" class="ma-0 ml-1 mt-1" :key="line._id">
+            <LineButton :selected-lines="selected_lines"
+                        :line="line"
+                        v-for="line in lines"
+                        class="ma-0 ml-1 mt-1"
+                        :key="line._id"
+                        v-show="!filter || line.lineId.indexOf(filter) > -1"
+            >
                 {{line.lineId}}
             </LineButton>
             <div class="mb-5"></div>
@@ -21,22 +27,20 @@
         components: {LineButton},
         computed: {
             lines() {
-                return this.$store.state.lines.filter(v => {
-                    return !this.filter || v.lineId.indexOf(this.filter) > -1;
-                });
+                return this.$store.state.lines;
+            },
+            selected_lines() {
+                return this.$store.state.selected_lines;
             }
         },
         data() {
             return {
                 filter: '',
-                selected_lines: {},
+                selected: {},
             };
         },
         methods: {
 
-        },
-        watch: {
-            selected_lines: console.warn
         }
     }
 </script>
@@ -45,9 +49,5 @@
     .lines-list{
         height: calc(100% - 50px);
         overflow-y: auto;
-    }
-    .lines-list .v-btn--active {
-        background: black;
-        color: white;
     }
 </style>

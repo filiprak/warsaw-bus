@@ -7,32 +7,35 @@
 <script>
     export default {
         name: "LineButton",
-        props: ['value', 'modelId'],
+        props: ['selectedLines', 'line'],
         model: {
             prop: 'value',
             event: 'changed'
         },
         data() {
             return {
-                css_class: this.setCssClass(this.value[this.modelId])
+                css_class: ''
             }
         },
         methods: {
-            onClick() {
-                this.value[this.modelId] = !this.value[this.modelId];
-                this.setCssClass(this.value[this.modelId]);
-                this.$emit('changed', this.value);
+            async onClick() {
+                await this.$store.dispatch('setLineSelected', [this.line.lineId, !this.selectedLines[this.line.lineId]]);
+                this.setCssClass(this.selectedLines[this.line.lineId]);
+                this.$emit('changed', this.selectedLines[this.line.lineId]);
             },
             setCssClass(state) {
-                this.css_class = state ? 'toggled' : '';
-            }
+                this.css_class = state ? 'v-btn--toggled' : '';
+            },
+        },
+        mounted() {
+            this.setCssClass(this.selectedLines[this.line.lineId]);
         }
     }
 </script>
 
 <style scoped>
-    .toggled {
-        background: black !important;
+    .v-btn.v-btn--toggled {
+        background-color: #212121 !important;
         color: white;
     }
 </style>
