@@ -1,6 +1,6 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
-import Provider from './providers/active-provider'
+import Api from './api-clients/api'
 
 Vue.use(Vuex);
 
@@ -16,8 +16,8 @@ export default new Vuex.Store({
     },
     actions: {
         fetchLines(context) {
-            return Provider.fetchLines().then(data => {
-                context.commit('changeLines', data);
+            return Api.fetchLines().then(response => {
+                context.commit('changeLines', response.data.data);
             });
         }
     }

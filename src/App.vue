@@ -1,11 +1,37 @@
 <template>
     <v-app>
-        <v-container class="controls">
-            <v-flex offset-xs-0 xs12 offset-md6 md6>
-                <Controls></Controls>
-            </v-flex>
-        </v-container>
-        <Map></Map>
+        <v-navigation-drawer
+                v-model="drawer"
+                fixed
+                clipped
+                app
+        >
+            <Controls></Controls>
+        </v-navigation-drawer>
+
+        <v-toolbar
+                dark
+                dense
+                fixed
+                clipped-left
+                app
+                flat
+        >
+            <v-toolbar-side-icon @click.stop="drawer = !drawer"></v-toolbar-side-icon>
+            <v-toolbar-title class="mr-5 align-center">
+                <span class="title">Warsaw Bus</span>
+            </v-toolbar-title>
+        </v-toolbar>
+
+        <v-content>
+            <v-container fill-height class="ma-0 pa-0 max-width-full">
+                <v-layout>
+                    <v-flex class="fill-height" grow>
+                        <Map></Map>
+                    </v-flex>
+                </v-layout>
+            </v-container>
+        </v-content>
     </v-app>
 </template>
 
@@ -21,30 +47,30 @@
             Map
         },
         data() {
-            return {}
+            return {
+                drawer: false
+            }
         },
         mounted() {
-            //store.dispatch('fetchLines');
+            store.dispatch('fetchLines');
         }
     }
 </script>
 
 <style>
     body, html {
-        width: 100%;
-        height: 100%;
+        width: 100vw;
+        height: 100vh;
         margin: 0;
         padding: 0;
         overflow-y: auto !important;
         overflow-x: hidden;
     }
 
-    .controls {
-        position: absolute;
-        right: 0;
-        left: 0;
-        top: 0;
-        width: 100%;
-        z-index: 9999;
+    .max-height-full {
+        max-height: 100%;
+    }
+    .max-width-full {
+        max-width: 100%;
     }
 </style>
