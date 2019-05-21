@@ -7,17 +7,22 @@ Vue.use(Vuex);
 export default new Vuex.Store({
     state: {
         lines: [],
-        selected_lines: {
-            2: true
-        },
+        selected_lines: {},
     },
     mutations: {
         changeLines(state, lines) {
             state.lines = lines || [];
         },
         setLineSelected(state, [lineId, selected]) {
-            state.selected_lines[lineId] = selected;
+            if (!selected) {
+                Vue.delete(state.selected_lines, lineId);
+            } else {
+                Vue.set(state.selected_lines, lineId, true);
+            }
         },
+        clearLinesSelection(state) {
+            state.selected_lines = {};
+        }
     },
     actions: {
         fetchLines(context) {
@@ -27,6 +32,9 @@ export default new Vuex.Store({
         },
         setLineSelected(context, [lineId, selected]) {
             context.commit('setLineSelected', [lineId, selected]);
+        },
+        clearLinesSelection(context) {
+            context.commit('clearLinesSelection');
         }
     }
 })

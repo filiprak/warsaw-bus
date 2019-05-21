@@ -46,6 +46,11 @@
             Controls,
             Map
         },
+        computed: {
+            selected_lines() {
+                return this.$store.state.selected_lines;
+            }
+        },
         data() {
             return {
                 drawer: false
@@ -70,6 +75,7 @@
     .max-height-full {
         max-height: 100%;
     }
+
     .max-width-full {
         max-width: 100%;
     }

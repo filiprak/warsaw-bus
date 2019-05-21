@@ -1,5 +1,5 @@
 <template>
-    <v-btn outline @click.stop="onClick" :class="css_class">
+    <v-btn outline @click.stop="onClick" :class="selected ? 'v-btn--toggled' : ''">
         <slot></slot>
     </v-btn>
 </template>
@@ -7,10 +7,15 @@
 <script>
     export default {
         name: "LineButton",
-        props: ['selectedLines', 'line'],
+        props: ['line'],
         model: {
             prop: 'value',
             event: 'changed'
+        },
+        computed: {
+            selected() {
+                return !!this.$store.state.selected_lines[this.line.lineId];
+            }
         },
         data() {
             return {
@@ -19,17 +24,10 @@
         },
         methods: {
             async onClick() {
-                await this.$store.dispatch('setLineSelected', [this.line.lineId, !this.selectedLines[this.line.lineId]]);
-                this.setCssClass(this.selectedLines[this.line.lineId]);
-                this.$emit('changed', this.selectedLines[this.line.lineId]);
-            },
-            setCssClass(state) {
-                this.css_class = state ? 'v-btn--toggled' : '';
+                await this.$store.dispatch('setLineSelected', [this.line.lineId, !this.selected]);
+                this.$emit('changed', this.selected);
             },
         },
-        mounted() {
-            this.setCssClass(this.selectedLines[this.line.lineId]);
-        }
     }
 </script>
 

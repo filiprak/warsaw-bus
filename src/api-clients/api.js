@@ -14,7 +14,7 @@ class ApiClient {
     fetchLines() {
         return this._axios.get('/lines', {
             params: {
-                $limit: 500
+                $limit: 500,
             }
         }).then(data => {
             return data;
