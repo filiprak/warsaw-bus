@@ -21,6 +21,10 @@
             <v-toolbar-title class="mr-5 align-center">
                 <span class="title">Warsaw Bus</span>
             </v-toolbar-title>
+            <v-spacer></v-spacer>
+            <v-btn icon @click.stop="onRefreshClick" :loading="loading_positions">
+                <v-icon>refresh</v-icon>
+            </v-btn>
         </v-toolbar>
 
         <v-content>
@@ -49,20 +53,36 @@
         computed: {
             selected_lines() {
                 return this.$store.state.selected_lines;
-            }
+            },
+            loading_positions() {
+                return this.$store.state.loading_positions;
+            },
         },
         data() {
             return {
-                drawer: false
+                drawer: false,
             }
         },
-        mounted() {
-            store.dispatch('fetchLines');
+        methods: {
+            async onRefreshClick() {
+                await store.dispatch('fetchPositions');
+            }
+        },
+        async mounted() {
+            await store.dispatch('fetchLines');
+            await store.dispatch('fetchPositions');
+            setInterval(async () => {
+                await store.dispatch('fetchPositions');
+            }, 5000);
         }
     }
 </script>
 
 <style>
+    :root {
+        --bus-marker-color: #ff0000;
+        --tram-marker-color: #ff0000;
+    }
     body, html {
         width: 100vw;
         height: 100vh;

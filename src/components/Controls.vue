@@ -10,7 +10,7 @@
                         v-for="line in lines"
                         class="ma-0 ml-1 mt-1"
                         :key="line._id"
-                        v-show="!filter || line.lineId.indexOf(filter) > -1"
+                        v-show="!filter || line.lineId.toLowerCase().indexOf(filter.toLowerCase()) > -1"
             >
                 {{line.lineId}}
             </LineButton>

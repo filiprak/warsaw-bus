@@ -9,7 +9,6 @@
         name: "LineButton",
         props: ['line'],
         model: {
-            prop: 'value',
             event: 'changed'
         },
         computed: {
@@ -19,12 +18,12 @@
         },
         data() {
             return {
-                css_class: ''
+
             }
         },
         methods: {
             async onClick() {
-                await this.$store.dispatch('setLineSelected', [this.line.lineId, !this.selected]);
+                await this.$store.dispatch('setLineSelected', [this.line, !this.selected]);
                 this.$emit('changed', this.selected);
             },
         },
